@@ -1,4 +1,5 @@
 const express= require("express");
+    const cors=require("cors");
 const app=express();
 const path=require("path");
 const dotenv=require("dotenv");
@@ -20,6 +21,7 @@ app.get("/",(req,res)=>{
 
 app.use(express.urlencoded({extended:true}));
 app.use(bodyParser.json());
+app.use(cors())
 app.use("/api/user",userRoute);
 app.use("/api/job",jobRoute);
 app.listen(PORT,()=>{
