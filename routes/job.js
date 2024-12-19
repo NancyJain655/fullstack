@@ -5,7 +5,11 @@ const authMiddleware=require("../middleware/auth")
 const dotenv=require("dotenv")
 dotenv.config()
 router.get("/",async(req,res)=>{
-    const jobs=await Job.find();
+    const {limit,offset,salary,name}= req.query;
+   // const jobs=await Job.find({salary:{$gte:200,$lte:1000}}).skip(offset).limit(limit);
+   //const jobs=await Job.find({salary}).skip(offset).limit(limit);
+   //const jobs=await Job.find({salary,companyName:name}).skip(offset).limit(limit);
+   const jobs=await Job.find({companyName:{ $regex: name,$options:"i"},salary}).skip(offset).limit(limit);
     res.status(200).json(jobs)
 });
 router.get("/:id",async(req,res)=>{
